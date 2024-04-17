@@ -35,7 +35,17 @@ logstore_index = {
             'type': 'text',
             'token': [',', ' ', "'", '"', ';', '=', '(', ')', '[', ']', '{', '}', '?', '@', '&', '<', '>', '/', ':', '\n', '\t', '\r'],
             'caseSensitive': False, 'alias': '', 'doc_value': True, 'chn': False
-        }
+        },
+        'source': {
+            'type': 'text',
+            'token': [',', ' ', "'", '"', ';', '=', '(', ')', '[', ']', '{', '}', '?', '@', '&', '<', '>', '/', ':', '\n', '\t', '\r'],
+            'caseSensitive': False, 'alias': '', 'doc_value': True, 'chn': False
+        },
+        'topic': {
+            'type': 'text',
+            'token': [',', ' ', "'", '"', ';', '=', '(', ')', '[', ']', '{', '}', '?', '@', '&', '<', '>', '/', ':', '\n', '\t', '\r'],
+            'caseSensitive': False, 'alias': '', 'doc_value': True, 'chn': False
+        },
     },
     'log_reduce': False,
     'max_text_len': 2048
@@ -63,7 +73,9 @@ def put_logs():
         now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 当前时间的字符串格式
         contents = [
             ('createtime', now),                                  # 添加时间戳字段
-            ('content', 'content %d' % i)              # 添加内容字段，包含i值的示例文本
+            ('content', 'content %d' % i),
+            ('source', 'web'),
+            ('topic', 'reply_question'),              # 添加内容字段，包含i值的示例文本
         ]
         log_item.set_contents(contents)
         log_group.append(log_item)
